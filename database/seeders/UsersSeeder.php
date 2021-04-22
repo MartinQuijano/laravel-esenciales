@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         App\User::create(array(
-  //          'email' => 'user@test.com',
+            'email' => 'user@test.com',
             'name' => 'user',
             'password' => bcrypt('user')
         ));
