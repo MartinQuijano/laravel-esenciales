@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'usuario_id',
+        'nombre',
+        'apellido',
+        'direccion',
+        'ciudad',
+        'telefono',
+    ];
 }

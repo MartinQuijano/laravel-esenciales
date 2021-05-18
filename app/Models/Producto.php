@@ -15,7 +15,13 @@ class Producto extends Model
      * @var array
      */
     protected $fillable = [
+        'marca',
+        'categoria',
         'cantidad',
         'precio',
+        'unidad',
+        'descripcion',
+        'ingredientes',
+        'imagen',
     ];
 }
