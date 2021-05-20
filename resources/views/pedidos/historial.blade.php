@@ -8,7 +8,7 @@
                 <div class="col-md-10">
                     <div class="card">
                         <div class="card-header text-center">
-                            Pedidos asd
+                            Pedidos
                         </div>
                         <ul class="list-group list-group-flush">
                             @foreach ($pedidos as $pedido)

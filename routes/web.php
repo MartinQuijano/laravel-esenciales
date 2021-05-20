@@ -37,9 +37,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/productos/submit', 'App\Http\Controllers\ProductosController@agregarProducto')->name('producto.agregar');
         Route::delete('/productos/borrar/{prod_id}','App\Http\Controllers\ProductosController@borrarProducto')->name('producto.borrar');
         Route::get('/productos/editar/{prod_id}','App\Http\Controllers\ProductosController@mostrarProducto')->name('producto.editar');
-        Route::post('/productos/editar/habilitar/{prod_id}','App\Http\Controllers\ProductosController@habilitarProducto')->name('producto.habilitar');
-        Route::post('/productos/editar/deshabilitar/{prod_id}','App\Http\Controllers\ProductosController@deshabilitarProducto')->name('producto.deshabilitar');
-        Route::post('/productos/actualizar/{prod_id}','App\Http\Controllers\ProductosController@actualizarProducto')->name('producto.actualizar');
+        Route::put('/productos/editar/habilitar/{prod_id}','App\Http\Controllers\ProductosController@habilitarProducto')->name('producto.habilitar');
+        Route::put('/productos/editar/deshabilitar/{prod_id}','App\Http\Controllers\ProductosController@deshabilitarProducto')->name('producto.deshabilitar');
+        Route::put('/productos/actualizar/{prod_id}','App\Http\Controllers\ProductosController@actualizarProducto')->name('producto.actualizar');
         Route::get('/pedidos/activos', 'App\Http\Controllers\PedidosController@consultarPedidosActivos')->name('pedidos.activos');
         Route::get('/pedidos/listos', 'App\Http\Controllers\PedidosController@consultarPedidosListos')->name('pedidos.listos');
         Route::post('/pedidos/gestionar/{pedido_id}', 'App\Http\Controllers\PedidosController@marcarListo')->name('marcar_listo');

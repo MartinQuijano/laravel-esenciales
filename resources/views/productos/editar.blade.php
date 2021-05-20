@@ -10,6 +10,7 @@
                         Editar producto
                     </div>
                     <form action="{{ route('producto.actualizar',['prod_id'=>$producto->id]) }}" method="POST" enctype="multipart/form-data" style="margin: 50px">
+                        @method('PUT')
                         @csrf
                         <div class="form-group">
                         <label>Marca</label>

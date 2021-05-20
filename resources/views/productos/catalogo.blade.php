@@ -68,12 +68,14 @@
                                             </form>
                                             @if($producto_item->estado == 'activo')
                                                 <form action="{{ route ('producto.deshabilitar',['prod_id'=>$producto_item->id]) }}" method="POST">
+                                                    @method('PUT')
                                                     @csrf 
                                                     <button type="submit" class="btn btn-small btn-info mt-1">{{ __('Deshabilitar') }}</button>   
                                                 </form>
                                             @else
                                                 <form action="{{ route ('producto.habilitar',['prod_id'=>$producto_item->id]) }}" method="POST">
                                                     @csrf 
+                                                    @method('PUT')
                                                     <button type="submit" class="btn btn-small btn-info mt-1">{{ __('Habilitar') }}</button>   
                                                 </form>
                                             @endif
