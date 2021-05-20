@@ -23,5 +23,10 @@ class Producto extends Model
         'descripcion',
         'ingredientes',
         'imagen',
+        'estado',
     ];
+
+    public function pedidos(){
+        return $this->belongsToMany('App\Models\Pedido', 'lista_pedidos')->withPivot('cantidad');
+    }
 }

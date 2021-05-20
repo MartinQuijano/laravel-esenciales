@@ -20,7 +20,7 @@
                                 Precio total: ${{ $pedido->precioTotal() }}
                             </li>
                             @if(Auth::user()->role == 'admin')
-                                @if($pedido->estado != 'listo')  {{-- Que pasa con esta logica aca? es válido? --}} 
+                                @if($pedido->estado != 'listo')
                                     <li class="list-group-item" style="line-height: 37px">
                                         <form action="{{ route ('marcar_listo', ['pedido_id'=>$pedido->id]) }}" method="POST">
                                             @csrf 

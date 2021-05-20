@@ -21,7 +21,6 @@ class ProductosController extends Controller
         $productos = Producto::where('categoria', '=', ucfirst($categoria))->get();
         $this->prodEncodeToImgFile($productos);
 
-        // CONSULTAR ESTO!
         if(Auth::check()){
             $pedidoSinConfirmar = Pedido::where('cliente_id', Auth::user()->cliente_id)->where('estado', 'sin confirmar')->first();
             $productosEnPedido = null;
@@ -30,60 +29,78 @@ class ProductosController extends Controller
                 $this->descontarCantidadALosProductosQueAparecenEnPedido($productos, $pedidoSinConfirmar);
             }
         }
-        
-        //
+
         return view('productos.catalogo', ['categorias'=>$categorias->pluck('categoria'),'productos'=> $productos]);
     }
 
-    private function prodEncodeToImgFile($productos){
-        $imgFolder = "public/prodImgs/";
-
-        if(!file_exists($imgFolder)){
-            mkdir($imgFolder, 0777, true);
-        }
-
-        foreach($productos as $producto){
-            $nombreArchivo = $producto->marca;
-            $dir = $imgFolder.$nombreArchivo;
-
-            if(!empty($producto->imagen)){
-                $imagenCodificada = $producto->imagen;
-                $archivo = fopen($dir, "w");
-                fwrite($archivo, base64_decode(stream_get_contents($imagenCodificada)));
-            }
-        }
-    }
-
     function agregarProducto(Request $request){
+        $this->validarDatosFormularioProducto($request);
+
         $producto = new Producto;
         $this->setearYGuardarProducto($producto, $request);
 
         return back()->with('message', 'Producto agregado.');
     }
-        
-    function borrarProducto($id){
-        $producto = Producto::find($id);
+      
+    function actualizarProducto($prod_id, Request $request){
+        $this->validarDatosFormularioProducto($request);
+
+        $producto = Producto::find($prod_id);
+        $this->setearYGuardarProducto($producto, $request);
+
+        return redirect()->route('productos.catalogo')->with('message','Producto actualizado.');
+    }
+
+    function borrarProducto($prod_id){
+
+        $producto = Producto::find($prod_id);
         $producto->delete();
         
-        error_log('Si wacho, aca entro!');
         return back()->with('message', 'Producto eliminado.');;
     }
 
-    function actualizarProducto($id, Request $request){
-        $producto = Producto::find($id);
-        $this->setearYGuardarProducto($producto, $request);
+    function habilitarProducto($prod_id){
+        $producto = Producto::find($prod_id);
+        $producto->estado = 'activo';
+        $producto->save();
 
-        return redirect()->route('productos.catalogo')->with('message','Producto actualizado.');;
+        return back()->with('message','Producto habilitado.');
     }
 
-    function mostrarProducto($id){
-        $producto = Producto::find($id);
+    function deshabilitarProducto($prod_id){
+        $producto = Producto::find($prod_id);
+        
+        $producto->estado = 'inactivo';
+        $producto->save();
+
+        return back()->with('message','Producto deshabilitado.');
+    }
+    
+    function mostrarProducto($prod_id){
+        $producto = Producto::find($prod_id);
         $this->singleImageToFile($producto);
 
-        // Esto lo agrego para poder rellenar el sidebar cuando estoy actualizando un prod en particular. Redundancia?
         $categorias = Producto::orderBy('categoria','asc')->distinct('categoria')->get();
 
         return view('productos/editar', ['categorias'=>$categorias->pluck('categoria'),'producto'=>$producto]);
+    }
+
+    function completarDatosProductoAgregar(){
+        $categorias = Producto::orderBy('categoria','asc')->distinct('categoria')->get();
+
+        return view('productos.completar', ['categorias'=> $categorias->pluck('categoria')]);
+    }
+    
+    private function validarDatosFormularioProducto(Request $request){
+        $request->validate([
+            'marca' => 'required | string | max:50',
+            'categoria' => 'required | string | max:30',
+            'cantidad' => 'required | numeric',
+            'precio' => 'required | numeric',
+            'unidad' => 'required | string | max:10',
+            'descripcion' => 'required | string',
+            'ingredientes' => 'required | string',
+        ]);
     }
 
     private function setearYGuardarProducto($producto, Request $request){
@@ -95,7 +112,7 @@ class ProductosController extends Controller
         $producto->unidad = $request->unidad;
         $producto->descripcion = $request->descripcion;
         $producto->ingredientes = $request->ingredientes;
-
+        
         if ($request->hasFile('prod_image')) {
             $image = base64_encode(file_get_contents($request->file('prod_image')));
             $producto->imagen = $image;
@@ -105,7 +122,7 @@ class ProductosController extends Controller
     }
 
     private function singleImageToFile($producto){
-        $imgFolder = "public/prodImgs/";
+        $imgFolder = "prodImgs/";
 
         if(!file_exists($imgFolder)){
             mkdir($imgFolder, 0777, true);
@@ -116,7 +133,7 @@ class ProductosController extends Controller
 
         if(!empty($producto->imagen)){
             $imagenCodificada = $producto->imagen;
-            $archivo = fopen($dir, "w");
+            $archivo = fopen(public_path($dir), "w");
             fwrite($archivo, base64_decode(stream_get_contents($imagenCodificada)));
         }
     }
@@ -130,11 +147,24 @@ class ProductosController extends Controller
                 $productoADescontarCantidad->cantidad =  $productoADescontarCantidad->cantidad - $producto_item->pivot->cantidad;
                 
         }
-     }
+    }
 
-     function completarDatosProductoAgregar(){
-        $categorias = Producto::orderBy('categoria','asc')->distinct('categoria')->get();
+    private function prodEncodeToImgFile($productos){
+        $imgFolder = "prodImgs/";
 
-        return view('productos.completar', ['categorias'=> $categorias->pluck('categoria')]);
-     }
+        if(!file_exists($imgFolder)){
+            mkdir($imgFolder, 0777, true);
+        }
+
+        foreach($productos as $producto){
+            $nombreArchivo = $producto->marca;
+            $dir = $imgFolder.$nombreArchivo;
+
+            if(!empty($producto->imagen)){
+                $imagenCodificada = $producto->imagen;
+                $archivo = fopen(public_path($dir), "w");
+                fwrite($archivo, base64_decode(stream_get_contents($imagenCodificada)));
+            }
+        }
+    }
 }

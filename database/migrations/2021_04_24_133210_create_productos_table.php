@@ -22,6 +22,8 @@ class CreateProductosTable extends Migration
             $table->string('unidad');
             $table->char('descripcion', 511);
             $table->char('ingredientes', 511);
+            $table->string('estado');
+
             $table->binary('imagen')->nullable();
             $table->timestamps();
         });

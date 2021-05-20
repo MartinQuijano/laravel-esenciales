@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'apellido' => ['required', 'string', 'max:255'],
             'direccion' => ['required', 'string', 'max:255'],
             'ciudad' => ['required', 'string', 'max:255'],
-            'telefono' => ['required', 'string', 'max:255'],
+            'telefono' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -74,7 +74,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        error_log('creando cliente y usuario');
         $cliente = new Cliente;
 
         $cliente->nombre = $data['nombre'];
@@ -82,17 +81,17 @@ class RegisterController extends Controller
         $cliente->direccion = $data['direccion'];
         $cliente->ciudad = $data['ciudad'];
         $cliente->telefono = $data['telefono'];
-
+        
         $cliente->save();
 
         $user = new User;
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
+        $user->role = 'cliente';
         $user->cliente_id = $cliente->id;
 
         $user->save();
-        error_log('termino de crear');
         return $user;
     }
 

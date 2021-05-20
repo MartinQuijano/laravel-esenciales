@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://kit.fontawesome.com/d4acc87b25.js" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,8 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/esenciales-style.css') }}" rel="stylesheet">
-  
+    <link href="{{ asset('css/esenciales-style.css') }}" rel="stylesheet">  
+
 </head>
 <body>
     <div id="app">
@@ -41,7 +42,6 @@
                         @if(Auth::check())
                             <li class="nav-item"><a class="nav-link" href="{{ route('pedidos') }}">{{ __('Pedidos') }}</a></li>
                         @endif
-                        <li class="nav-item"><a class="nav-link" href="#">{{ __('Ayuda') }}</a></li>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">

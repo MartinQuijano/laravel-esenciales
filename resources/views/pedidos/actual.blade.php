@@ -4,6 +4,27 @@
     <!-- Mostrar el pedido actual con los items, un boton para remover cada item y un boton de confirmar pedido -->
     <div class="content">
         <div class="container mt-5 mb-5">
+            @if(session()->has('message'))
+            <div class="d-flex justify-content-center row">
+                <div class="alert alert-success alert-dismissible fade show">
+                    {{ session()->get('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            @endif
+            @if($errors->any())
+            <div class="d-flex justify-content-center row">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    {{ $errors->first()}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            @endif
+
             <div class="d-flex justify-content-center row">
                 <div class="col-md-10">
                         <div class="card">

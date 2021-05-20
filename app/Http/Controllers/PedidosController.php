@@ -12,52 +12,24 @@ use App\Models\Lista_pedido;
 
 class PedidosController extends Controller
 {
-    /*function categoriasDeProductos(){
-        $categorias = Producto::orderBy('categoria','asc')->distinct('categoria')->get();
-        $pedidoSinConfirmar = $this->obtenerPedidoSinConfirmar();
-        $productosEnPedido = null;
-        if($this->existePedido($pedidoSinConfirmar)){
-            $productosEnPedido = $pedidoSinConfirmar->productos;
-        }
-
-        return view('pedidos.catalogo', ['categorias'=> $categorias->pluck('categoria'), 'productos_pedido'=> $productosEnPedido]);
-     }*/
- 
-    /* function productosPorCategoria($categoria){
-        $categorias = Producto::orderBy('categoria','asc')->distinct('categoria')->get();
-        $productos = Producto::where('categoria', '=', ucfirst($categoria))->get();
-        $pedidoSinConfirmar = $this->obtenerPedidoSinConfirmar();
-        $productosEnPedido = null;
-
-        if($this->existePedido($pedidoSinConfirmar)){
-            $this->descontarCantidadALosProductosQueAparecenEnPedido($productos, $pedidoSinConfirmar);
-        }
-
-        return view('pedidos.catalogo', ['categorias'=> $categorias->pluck('categoria'), 'productos'=> $productos, 'productos_pedido'=> $productosEnPedido]);
-     }*/
-
      function pedidosView(){
          return view('pedidos/menu');
      }
 
      function agregarProductoPedido($prod_id, Request $request){
-        $cliente_id = Auth::user()->cliente_id;              //obtengo id de cliente
+        $cliente_id = Auth::user()->cliente_id;             
         
-        $pedido = null;                                       //creo pedido nulo
-        $productosEnPedido = null;                            //productos en el pedido nulo
+        $pedido = null;                                    
+        $productosEnPedido = null;                            
 
-        $productoAgregado = Producto::where('id', $prod_id)->first();          // obtengo el producto que quiero agregar al pedido
+        $productoAgregado = Producto::where('id', $prod_id)->first();          
 
-        if($request->cantidad <= $productoAgregado->cantidad){               //si la cantidad pedida de producto es menor o igual que la cantidad disponible
+        if($request->cantidad <= $productoAgregado->cantidad){            
         
-            $pedido = Pedido::where('cliente_id', $cliente_id)->where('estado', 'sin confirmar')->first();         //obtengo el pedido 'sin confirmar' (en construccion)
-            if(!$this->existePedido($pedido)){                                                                      //si el pedido no existe, lo creo con los datos correspondientes
-                $pedido = new Pedido;
-                $pedido->cliente_id = $cliente_id;
-                $pedido->fecha = Carbon::now();
-                $pedido->estado = 'sin confirmar';
-                $pedido->save();
-                $pedido = Pedido::where('cliente_id', $cliente_id)->where('estado', 'sin confirmar')->first();      //
+            $pedido = Pedido::where('cliente_id', $cliente_id)->where('estado', 'sin confirmar')->first();  
+            if(!$this->existePedido($pedido)){                                                                   
+                $this->crearNuevoPedidoParaCliente($cliente_id);
+                $pedido = Pedido::where('cliente_id', $cliente_id)->where('estado', 'sin confirmar')->first();  
             }
             $this->agregarListaPedidoDeProducto($pedido, $prod_id, $request->input('cantidad'));
         }
@@ -90,6 +62,7 @@ class PedidosController extends Controller
             $producto->save();
         }
         $pedidoSinConfirmar->estado = 'procesando';
+        $pedidoSinConfirmar->fecha = Carbon::now(); 
         $pedidoSinConfirmar->save();
 
         return back()->with('message', 'El pedido será procesado pronto! Muchas gracias!');
@@ -137,6 +110,12 @@ class PedidosController extends Controller
         return view('pedidos/actual', ['productos_pedido'=> $productosEnPedido, 'pedido'=> $pedidoSinConfirmar]);
     }
 
+    function detallesPedido($pedido_id){
+        $pedido = Pedido::where('id', $pedido_id)->first();
+
+        return view('/pedidos/detalles', ['pedido' => $pedido]);
+    }
+
     private function existePedido($pedido){
         if($pedido != null)
             return true;
@@ -153,9 +132,9 @@ class PedidosController extends Controller
         foreach($productosEnPedido as $producto_item){
             $productos->where('id', $producto_item->id)->first()->cantidad =  $productos->where('id', $producto_item->id)->first()->cantidad - $producto_item->pivot->cantidad;
         }
-     }
+    }
 
-     private function agregarListaPedidoDeProducto($pedido, $prod_id, $cantidadPedida){
+    private function agregarListaPedidoDeProducto($pedido, $prod_id, $cantidadPedida){
         $lista_pedido = Lista_pedido::where('pedido_id', $pedido->id)->where('producto_id', $prod_id)->first();
 
         if($lista_pedido != null){                                                                  
@@ -169,11 +148,13 @@ class PedidosController extends Controller
             $lista_pedido->cantidad = $cantidadPedida;
             $lista_pedido->save();
         }
-     }
+    }
 
-    function detallesPedido($pedido_id){
-        $pedido = Pedido::where('id', $pedido_id)->first();
-
-        return view('/pedidos/detalles', ['pedido' => $pedido]);
+    private function crearNuevoPedidoParaCliente($cliente_id){
+        $pedido = new Pedido;
+        $pedido->cliente_id = $cliente_id;
+        $pedido->fecha = Carbon::now();
+        $pedido->estado = 'sin confirmar';
+        $pedido->save();
     }
 }

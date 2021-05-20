@@ -1,7 +1,7 @@
 @extends('pedidos.sidebar')
 @section('content_area')
 
-    <!--  Lista de los pedidos -->
+    <!--  Lista de los pedidos activos -->
     <div class="content">
         <div class="container mt-5 mb-5">
             @if(session()->has('message'))

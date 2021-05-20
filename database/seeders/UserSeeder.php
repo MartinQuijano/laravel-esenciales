@@ -15,19 +15,19 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'test_name',
-            'email' => 'test@gmail.com',
+            'name' => 'cliente',
+            'email' => 'cliente@gmail.com',
             'cliente_id' => '1',
             'role' => 'cliente',
-            'password' => bcrypt('test'),
+            'password' => bcrypt('cliente'),
         ]);
 
         DB::table('users')->insert([
-            'name' => 'test2_name',
-            'email' => 'test2@gmail.com',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
             'cliente_id' => '2',
             'role' => 'admin',
-            'password' => bcrypt('test2'),
+            'password' => bcrypt('admin'),
         ]);
     }
 }
