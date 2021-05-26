@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\Pedido;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProductosController extends Controller
 {
@@ -89,6 +90,14 @@ class ProductosController extends Controller
         $categorias = Producto::orderBy('categoria','asc')->distinct('categoria')->get();
 
         return view('productos.completar', ['categorias'=> $categorias->pluck('categoria')]);
+    }
+
+    function productoDetalles(){
+        
+        $ingr = '1%20'.'banana';
+        $info = Http::get('https://api.edamam.com/api/nutrition-data?app_id=441e6b70&app_key=a1b49f28a25111af90e2ed3ad87ff3ba&ingr='.$ingr)->json();
+
+        return view('productos/detalles', ['informacion'=>$info]);
     }
     
     private function validarDatosFormularioProducto(Request $request){
