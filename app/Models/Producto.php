@@ -15,7 +15,18 @@ class Producto extends Model
      * @var array
      */
     protected $fillable = [
+        'marca',
+        'categoria',
         'cantidad',
         'precio',
+        'unidad',
+        'descripcion',
+        'ingredientes',
+        'imagen',
+        'estado',
     ];
+
+    public function pedidos(){
+        return $this->belongsToMany('App\Models\Pedido', 'lista_pedidos')->withPivot('cantidad');
+    }
 }
