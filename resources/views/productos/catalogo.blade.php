@@ -27,7 +27,9 @@
                             <div class="col-md-6 mt-1">
                                 <h5>{{ $producto_item->marca }}</h5>
                                 <p class="text-justify text-truncate para mb-0">{{ $producto_item->descripcion }}<br><br></p>
-                                <a href="#{{-- route ('producto.detalles',['prod_marca'=> '1 '.$producto_item->marca]) --}}">Información nutricional</a>
+                                @if($producto_item->categoria == 'Fruta' || $producto_item->categoria == 'Frutas' || $producto_item->categoria == 'Verdura' || || $producto_item->categoria == 'Verduras')
+                                    <a href="{{ route ('productos.detalles',['prod_marca'=> $producto_item->marca]) }}">Información nutricional</a>
+                                @endif
                             </div>
                             <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                                 <div class="d-flex flex-row align-items-center">

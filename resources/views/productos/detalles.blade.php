@@ -13,25 +13,25 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            Valor energético {{ $informacion['totalNutrients']['ENERC_KCAL']['quantity'] }} {{ $informacion['totalNutrients']['ENERC_KCAL']['unit'] }}
+                            Valor energético {{ number_format((float)$informacion['totalNutrients']['ENERC_KCAL']['quantity'], 4, '.','') }} {{ $informacion['totalNutrients']['ENERC_KCAL']['unit'] }}
                         </li>
                         <li class="list-group-item">
-                            Carbohidratos {{ $informacion['totalNutrients']['CHOCDF']['quantity'] }} {{ $informacion['totalNutrients']['CHOCDF']['unit'] }}
+                            Carbohidratos {{ number_format((float)$informacion['totalNutrients']['CHOCDF']['quantity'], 4, '.','') }} {{ $informacion['totalNutrients']['CHOCDF']['unit'] }}
                         </li>
                         <li class="list-group-item">
-                            Proteinas {{ $informacion['totalNutrients']['PROCNT']['quantity'] }} {{ $informacion['totalNutrients']['PROCNT']['unit'] }}
+                            Proteinas {{ number_format((float)$informacion['totalNutrients']['PROCNT']['quantity'], 4, '.','') }} {{ $informacion['totalNutrients']['PROCNT']['unit'] }}
                         </li>
                         <li class="list-group-item">
-                            Grasas totales {{ $informacion['totalNutrients']['FAT']['quantity'] }} {{ $informacion['totalNutrients']['FAT']['unit'] }}
+                            Grasas totales {{ number_format((float)$informacion['totalNutrients']['FAT']['quantity'], 4, '.','') }} {{ $informacion['totalNutrients']['FAT']['unit'] }}
                         </li>
                         <li class="list-group-item">
-                            Grasas saturadas {{ $informacion['totalNutrients']['FASAT']['quantity'] }} {{ $informacion['totalNutrients']['FASAT']['unit'] }}
+                            Grasas saturadas {{ number_format((float)$informacion['totalNutrients']['FASAT']['quantity'], 4, '.','') }} {{ $informacion['totalNutrients']['FASAT']['unit'] }}
                         </li>
                         <li class="list-group-item">
-                            Fibra {{ $informacion['totalNutrients']['FIBTG']['quantity'] }} {{ $informacion['totalNutrients']['FIBTG']['unit'] }}
+                            Fibra {{ number_format((float)$informacion['totalNutrients']['FIBTG']['quantity'], 4, '.','') }} {{ $informacion['totalNutrients']['FIBTG']['unit'] }}
                         </li>
                         <li class="list-group-item">
-                            Sodio {{ $informacion['totalNutrients']['NA']['quantity'] }} {{ $informacion['totalNutrients']['NA']['unit'] }}
+                            Sodio {{ number_format((float)$informacion['totalNutrients']['NA']['quantity'], 4, '.','') }} {{ $informacion['totalNutrients']['NA']['unit'] }}
                         </li>
                     </ul>
                 </div> 

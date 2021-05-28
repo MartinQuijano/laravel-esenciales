@@ -51,4 +51,4 @@ Route::group(['middleware' => ['auth']], function(){
 Route::get('/productos/catalogo','App\Http\Controllers\ProductosController@categoriasDeProductos')->name('productos.catalogo');
 Route::get('/productos/catalogo/{categoria}','App\Http\Controllers\ProductosController@productosPorCategoria')->name('productos.categoria');
 
-Route::get('/productos/detalles','App\Http\Controllers\ProductosController@productoDetalles')->name('productos.detalles');
+Route::get('/productos/detalles/{prod_marca}','App\Http\Controllers\ProductosController@productoDetalles')->name('productos.detalles');

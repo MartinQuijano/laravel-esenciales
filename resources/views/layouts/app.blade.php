@@ -39,8 +39,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent2" >
                     <ul class="navbar-nav ml-auto">                 
                         <li class="nav-item"><a class="nav-link" href="{{ route('productos.catalogo') }}">{{ __('Productos') }}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('productos.detalles') }}">{{ __('Detalles_test') }}</a></li>
-                        
+             
                         @if(Auth::check())
                             <li class="nav-item"><a class="nav-link" href="{{ route('pedidos') }}">{{ __('Pedidos') }}</a></li>
                         @endif
