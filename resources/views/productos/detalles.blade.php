@@ -35,6 +35,12 @@
                         </li>
                     </ul>
                 </div> 
+                @else
+                <div class="card">
+                    <div class="card-header text-center">
+                        No hay información adicional sobre este producto
+                    </div>
+                </div>
                 @endif
             </div>
         </div>
