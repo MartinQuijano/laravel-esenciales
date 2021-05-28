@@ -94,7 +94,7 @@ class ProductosController extends Controller
 
     function productoDetalles($prod_marca){
 
-        $texto_pedido_nutricion = generarTextoEnInglesParaConsulta($prod_marca);
+        $texto_pedido_nutricion = $this->generarTextoEnInglesParaConsulta($prod_marca);
 
         $info = Http::get('https://api.edamam.com/api/nutrition-data?app_id=441e6b70&app_key=a1b49f28a25111af90e2ed3ad87ff3ba&ingr='.$texto_pedido_nutricion)->json();
 
