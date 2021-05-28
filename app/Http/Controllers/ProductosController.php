@@ -105,18 +105,29 @@ class ProductosController extends Controller
 
     private function generarTextoEnInglesParaConsulta($prod_marca){
         $textoJSON = Http::get('https://api.mymemory.translated.net/get?q='.$prod_marca.'&langpair=es-ES|en-US')->json();
- 
-        $higherUsageCount = 0;
+        
         $indexToUse = 0;
+        $encontroPorSubject = false;
+
         for ($i=0; $i < sizeof($textoJSON['matches']); $i++) { 
-            if($textoJSON['matches'][$i]['usage-count'] > $higherUsageCount){
-                $higherUsageCount = $textoJSON['matches'][$i]['usage-count'];
+            if($textoJSON['matches'][$i]['subject'] == 'Agriculture_and_Farming'){
+                $encontroPorSubject = true;
                 $indexToUse = $i;
+            }
+        }
+
+        if(!$encontroPorSubject){
+            $higherUsageCount = 0;
+            for ($i=0; $i < sizeof($textoJSON['matches']); $i++) { 
+                if($textoJSON['matches'][$i]['usage-count'] > $higherUsageCount){
+                    $higherUsageCount = $textoJSON['matches'][$i]['usage-count'];
+                    $indexToUse = $i;
+                }
             }
         }
         
         $texto_en = $textoJSON['matches'][$indexToUse]['translation'];
-
+        
         return '1 '.$texto_en;
     }
     
@@ -129,6 +140,7 @@ class ProductosController extends Controller
             'unidad' => 'required | string | max:10',
             'descripcion' => 'required | string',
             'ingredientes' => 'required | string',
+            'estado' => 'required',
         ]);
     }
 
@@ -141,6 +153,7 @@ class ProductosController extends Controller
         $producto->unidad = $request->unidad;
         $producto->descripcion = $request->descripcion;
         $producto->ingredientes = $request->ingredientes;
+        $producto->estado = $request->estado;
         
         if ($request->hasFile('prod_image')) {
             $image = base64_encode(file_get_contents($request->file('prod_image')));

@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header text-center">
                         INFORMACIÓN NUTRICIONAL PORCIÓN 
-                        <div> {{ $informacion['totalWeight'] }}g </div>
+                        <div> {{ number_format((float)$informacion['totalWeight'], 4, '.','') }}g </div>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">

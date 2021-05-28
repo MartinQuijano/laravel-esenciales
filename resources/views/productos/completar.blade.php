@@ -56,6 +56,13 @@
                         <span style="color: red">@error('ingredientes'){{$message}}@enderror</span>
                       </div>
                       <div class="form-group">
+                        <label>Estado</label>
+                        <select class="form-control" name="estado">
+                          <option value="activo" selected>Habilitado</option>
+                          <option value="inactivo">Deshabilitado</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
                         <label>Cargar imagen</label>
                         <input type="file" name="prod_image">
                       </div>

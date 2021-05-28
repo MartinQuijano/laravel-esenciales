@@ -48,6 +48,13 @@
                             <span style="color: red">@error('ingredientes'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">
+                            <label>Estado</label>
+                            <select class="form-control" name="estado">
+                              <option value="activo" {{ ($producto['estado'] == 'activo') ? 'selected' : ''}}>Habilitado</option>
+                              <option value="inactivo"  {{ ($producto['estado'] == 'inactivo') ? 'selected' : ''}}>Deshabilitado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <img id="imgUpdate" src="{{ asset('prodImgs/'.$producto->marca)}}">
                             <label>Cargar imagen</label>
                             <input type="file" name="prod_image">
