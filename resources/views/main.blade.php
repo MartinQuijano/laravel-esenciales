@@ -49,7 +49,7 @@
 
     <div class="bottom-bar" style="text-align: center">
         <br>
-        <div style="color: rgba(255, 255, 255, 0.5); text-transform: uppercase; font-weight: 400; letter-spacing: .86px;">Seguinos en la web</span>
+        <div style="color: rgba(255, 255, 255, 0.5); text-transform: uppercase; font-weight: 400; letter-spacing: .86px;">Seguinos en la web
         <br>
         <br>
         <div>
@@ -58,7 +58,7 @@
             <a href="#" style="text-decoration: none; color: rgba(255, 255, 255, 0.5);"><i class="fab fa-instagram fa-2x"></i></a>
         </div>
         <br>
-        <div style="color: rgba(255, 255, 255, 0.5); text-transform: uppercase; font-weight: 400; letter-spacing: .86px;">© 2021 Empresa Esenciales. Todos los derechos reservados.</span>
+        <div style="color: rgba(255, 255, 255, 0.5); text-transform: uppercase; font-weight: 400; letter-spacing: .86px;">© 2021 Empresa Esenciales. Todos los derechos reservados.
     </div>
         
 @endsection

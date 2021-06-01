@@ -69,7 +69,7 @@ class ProductoSeeder extends Seeder
             'estado' => 'activo',
         ]);
 
-        $duraznos = base64_encode(file_get_contents('https://lh3.googleusercontent.com/proxy/lLm4kLVSGTopcOe1GfaO6keVXUgutp3EbNZBiIXCkBjhVM0xZ5oA38wGCSHYuLD87OxqA3FIxhKpeCVGFFrA56cy0Q8xeUtwAKFDldTKnIrGYpaBZE7YIcosnRg'));
+        $duraznos = base64_encode(file_get_contents('https://storage.googleapis.com/portalfruticola/2018/05/a1cf9a68-durazno-shutterstock_360348911-e1584379374484.jpg'));
         DB::table('productos')->insert([
             'marca' => 'Duraznos',
             'categoria' => 'Frutas',

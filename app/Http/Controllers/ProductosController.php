@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\Pedido;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProductosController extends Controller
 {
@@ -90,6 +91,45 @@ class ProductosController extends Controller
 
         return view('productos.completar', ['categorias'=> $categorias->pluck('categoria')]);
     }
+
+    function productoDetalles($prod_marca){
+
+        $texto_pedido_nutricion = $this->generarTextoEnInglesParaConsulta($prod_marca);
+
+        $info = Http::get('https://api.edamam.com/api/nutrition-data?app_id=441e6b70&app_key=a1b49f28a25111af90e2ed3ad87ff3ba&ingr='.$texto_pedido_nutricion)->json();
+
+        $categorias = Producto::orderBy('categoria','asc')->distinct('categoria')->get();
+
+        return view('productos/detalles', ['informacion'=>$info, 'categorias'=>$categorias->pluck('categoria')]);
+    }
+
+    private function generarTextoEnInglesParaConsulta($prod_marca){
+        $textoJSON = Http::get('https://api.mymemory.translated.net/get?q='.$prod_marca.'&langpair=es-ES|en-US')->json();
+        
+        $indexToUse = 0;
+        $encontroPorSubject = false;
+
+        for ($i=0; $i < sizeof($textoJSON['matches']); $i++) { 
+            if($textoJSON['matches'][$i]['subject'] == 'Agriculture_and_Farming'){
+                $encontroPorSubject = true;
+                $indexToUse = $i;
+            }
+        }
+
+        if(!$encontroPorSubject){
+            $higherUsageCount = 0;
+            for ($i=0; $i < sizeof($textoJSON['matches']); $i++) { 
+                if($textoJSON['matches'][$i]['usage-count'] > $higherUsageCount){
+                    $higherUsageCount = $textoJSON['matches'][$i]['usage-count'];
+                    $indexToUse = $i;
+                }
+            }
+        }
+        
+        $texto_en = $textoJSON['matches'][$indexToUse]['translation'];
+        
+        return '1 '.$texto_en;
+    }
     
     private function validarDatosFormularioProducto(Request $request){
         $request->validate([
@@ -100,6 +140,7 @@ class ProductosController extends Controller
             'unidad' => 'required | string | max:10',
             'descripcion' => 'required | string',
             'ingredientes' => 'required | string',
+            'estado' => 'required',
         ]);
     }
 
@@ -112,6 +153,7 @@ class ProductosController extends Controller
         $producto->unidad = $request->unidad;
         $producto->descripcion = $request->descripcion;
         $producto->ingredientes = $request->ingredientes;
+        $producto->estado = $request->estado;
         
         if ($request->hasFile('prod_image')) {
             $image = base64_encode(file_get_contents($request->file('prod_image')));
