@@ -17,7 +17,7 @@ class ProductoSeeder extends Seeder
         $oreo = base64_encode(file_get_contents('https://http2.mlstatic.com/D_NQ_NP_644885-MLA44926273647_022021-V.jpg'));
         DB::table('productos')->insert([
             'marca' => 'Oreo',
-            'categoria' => 'Galletitas',
+            'categoria' => 'galletitas',
             'cantidad' => '25',
             'precio' => '12.75',
             'unidad' => 'unidad',
@@ -32,7 +32,7 @@ class ProductoSeeder extends Seeder
         $pepas = base64_encode(file_get_contents('https://almacenonline.com.ar/wp-content/uploads/2020/03/galletitastriopepas.jpg'));
         DB::table('productos')->insert([
             'marca' => 'Pepas Trio',
-            'categoria' => 'Galletitas',
+            'categoria' => 'galletitas',
             'cantidad' => '12',
             'precio' => '20.00',
             'unidad' => 'unidad',
@@ -46,7 +46,7 @@ class ProductoSeeder extends Seeder
         $criollitas = base64_encode(file_get_contents('https://www.bmart.com.ar/img/articulos/galletitas_criollitas_imagen1.jpg'));
         DB::table('productos')->insert([
             'marca' => 'Criollitas Original',
-            'categoria' => 'Galletitas',
+            'categoria' => 'galletitas',
             'cantidad' => '22',
             'precio' => '45.00',
             'unidad' => 'unidad',
@@ -59,7 +59,7 @@ class ProductoSeeder extends Seeder
         $bananas = base64_encode(file_get_contents('https://media.istockphoto.com/photos/banana-picture-id1184345169?k=6&m=1184345169&s=612x612&w=0&h=I159iiNId_-XwGsoZlpi9WyeACv8kpg-EmyB5X2oo30='));
         DB::table('productos')->insert([
             'marca' => 'Bananas Ecuador',
-            'categoria' => 'Frutas',
+            'categoria' => 'frutas',
             'cantidad' => '40',
             'precio' => '25',
             'unidad' => 'kg',
@@ -72,7 +72,7 @@ class ProductoSeeder extends Seeder
         $duraznos = base64_encode(file_get_contents('https://storage.googleapis.com/portalfruticola/2018/05/a1cf9a68-durazno-shutterstock_360348911-e1584379374484.jpg'));
         DB::table('productos')->insert([
             'marca' => 'Duraznos',
-            'categoria' => 'Frutas',
+            'categoria' => 'frutas',
             'cantidad' => '10',
             'precio' => '80',
             'unidad' => 'kg',
@@ -84,7 +84,7 @@ class ProductoSeeder extends Seeder
 
         DB::table('productos')->insert([
             'marca' => 'Sin_imagen_test',
-            'categoria' => 'Frutas',
+            'categoria' => 'frutas',
             'cantidad' => '10',
             'precio' => '15',
             'unidad' => 'kg',
@@ -97,13 +97,12 @@ class ProductoSeeder extends Seeder
         $sprite = base64_encode(file_get_contents('https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3080021_f.jpg'));
         DB::table('productos')->insert([
             'marca' => 'Sprite',
-            'categoria' => 'Bebida',
+            'categoria' => 'bebida',
             'cantidad' => '50',
             'precio' => '120',
             'unidad' => 'unidad',
             'descripcion' => 'Bebida gaseosa con sabor a Lima limón.',
-            'ingredientes' => 'Agua carbonatada, azúcar, ácido cítrico, saborizante natural, 
-            citrato de sodio, benzoato de sodio, sucralosa y acesulfamo de potasio.',
+            'ingredientes' => 'Agua carbonatada, azúcar, ácido cítrico, saborizante natural, citrato de sodio, benzoato de sodio, sucralosa y acesulfamo de potasio.',
             'imagen' => $sprite,
             'estado' => 'activo',
         ]);
@@ -111,7 +110,7 @@ class ProductoSeeder extends Seeder
         $eco = base64_encode(file_get_contents('https://ardiaprod.vteximg.com.br/arquivos/ids/184878-1000-1000/Agua-Mineral-sin-Gas-Eco-de-los-Andes-2-Lts-_1.jpg?v=637427552887200000'));
         DB::table('productos')->insert([
             'marca' => 'Agua Eco de los andes',
-            'categoria' => 'Bebida',
+            'categoria' => 'bebida',
             'cantidad' => '40',
             'precio' => '100',
             'unidad' => 'unidad',
@@ -124,7 +123,7 @@ class ProductoSeeder extends Seeder
         $termaC = base64_encode(file_get_contents('https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3051716_f.jpg'));
         DB::table('productos')->insert([
             'marca' => 'Terma Citrus',
-            'categoria' => 'Bebida',
+            'categoria' => 'bebida',
             'cantidad' => '20',
             'precio' => '80',
             'unidad' => 'unidad',
@@ -137,7 +136,7 @@ class ProductoSeeder extends Seeder
         $termaP = base64_encode(file_get_contents('https://jumboargentina.vteximg.com.br/arquivos/ids/600795-1000-1000/Amargo-Terma-Pomelo-Rosado-1-75-L-1-30477.jpg?v=637348303655870000'));
         DB::table('productos')->insert([
             'marca' => 'Terma Pomelo Rosado',
-            'categoria' => 'Bebida',
+            'categoria' => 'bebida',
             'cantidad' => '20',
             'precio' => '80',
             'unidad' => 'unidad',

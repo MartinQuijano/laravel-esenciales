@@ -20,8 +20,8 @@ class CreateProductosTable extends Migration
             $table->integer('cantidad');
             $table->float('precio', 8, 2);
             $table->string('unidad');
-            $table->char('descripcion', 511);
-            $table->char('ingredientes', 511);
+            $table->string('descripcion', 511);
+            $table->string('ingredientes', 511);
             $table->string('estado');
 
             $table->binary('imagen')->nullable();

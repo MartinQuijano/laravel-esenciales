@@ -16,8 +16,50 @@ class PedidoSeeder extends Seeder
     {
         DB::table('pedidos')->insert([
             'cliente_id' => '1',
-            'fecha' => '05/05/2021',
+            'fecha' => '05/03/2021',
             'estado' => 'procesando',
+        ]);
+
+        DB::table('pedidos')->insert([
+            'cliente_id' => '1',
+            'fecha' => '06/07/2021',
+            'estado' => 'listo',
+        ]);
+
+        DB::table('pedidos')->insert([
+            'cliente_id' => '1',
+            'fecha' => '12/09/2021',
+            'estado' => 'listo',
+        ]);
+
+        DB::table('pedidos')->insert([
+            'cliente_id' => '2',
+            'fecha' => '02/11/2021',
+            'estado' => 'listo',
+        ]);
+
+        DB::table('pedidos')->insert([
+            'cliente_id' => '2',
+            'fecha' => '01/28/2021',
+            'estado' => 'listo',
+        ]);
+
+        DB::table('pedidos')->insert([
+            'cliente_id' => '2',
+            'fecha' => '07/07/2021',
+            'estado' => 'listo',
+        ]);
+
+        DB::table('pedidos')->insert([
+            'cliente_id' => '2',
+            'fecha' => '07/21/2021',
+            'estado' => 'listo',
+        ]);
+
+        DB::table('pedidos')->insert([
+            'cliente_id' => '1',
+            'fecha' => '07/21/2021',
+            'estado' => 'listo',
         ]);
     }
 }
